@@ -8,22 +8,26 @@ import java.net.Socket;
 public class Client extends Thread {
 
 	
+	private int ID;
 	private Socket socket;
 	
-	public Client(Socket clientSocket) {
+	public Client(Socket clientSocket, int ID) {
+		
 		this.socket = clientSocket;
+		this.ID = ID;
+		
 	}
 	
 	
 	public void run() {
 		
-		InputStream inp = null;
+		InputStream in = null;
         BufferedReader brinp = null;
         DataOutputStream out = null;
         
         try {
-            inp = socket.getInputStream();
-            brinp = new BufferedReader(new InputStreamReader(inp));
+            in = socket.getInputStream();
+            brinp = new BufferedReader(new InputStreamReader(in));
             out = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
         	System.out.println("[FAIL] Failed initializing Inputstream, bufferedreader or dataoutputstream.");
@@ -34,8 +38,21 @@ public class Client extends Thread {
         String line;
         while (true) {
         	
-        	/* Code comes soon */
         	
+        	try {
+
+				while ((line = brinp.readLine()) != null) {
+					
+					System.out.println("[CLIENT] " + line);
+					
+					
+					
+				}
+				
+			} catch (IOException e) {
+				System.out.println("[FAIL] Failed reading line from client.");
+				return;
+			}
         	
         	
         }

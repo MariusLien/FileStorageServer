@@ -41,14 +41,16 @@ public class Server {
 		while(true) {
 			
 			if(clients.size() >= maxClients) {
-				return;
+				continue;
 			}
 			
 			try {
 				
 				Socket clientSocket = socket.accept();
 				
-				Client client = new Client(clientSocket);
+				System.out.println("[OK] Connection established with " + socket.getInetAddress().getHostName());
+				
+				Client client = new Client(clientSocket, clients.size() + 1);
 				client.start();
 				clients.add(client);
 				
