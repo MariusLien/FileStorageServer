@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Server {
 
 	
-	private int maxClients;
 	public ArrayList<Client> clients;
 	
 	
@@ -14,10 +13,9 @@ public class Server {
 	public ServerSocket socket;
 	
 	
-	public Server(int port, int maxClients) {
+	public Server(int port) {
 	
 		this.port = port; 
-		this.maxClients = maxClients;
 		this.clients = new ArrayList<Client>();
 		
 		
@@ -39,10 +37,7 @@ public class Server {
 		
 		
 		while(true) {
-			
-			if(clients.size() >= maxClients) {
-				continue;
-			}
+		
 			
 			try {
 				
@@ -52,12 +47,14 @@ public class Server {
 				
 				Client client = new Client(clientSocket, clients.size() + 1);
 				client.start();
-				clients.add(client);
+				clients.add(client);				
 				
 			} catch (IOException e) {
-				System.out.println("[FAIL] Failed accepting the socket with the client.");
+				System.out.println("[FAIL] Failed to establish connection with client.");
 				return;
 			}
+			
+			
 			
 			
 			
