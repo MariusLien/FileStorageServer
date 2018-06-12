@@ -1,4 +1,4 @@
-import java.io.File;
+import utils.ServerFile;
 
 public class Main {
 
@@ -8,12 +8,10 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		database = new Database("fileserver", "root", "root");		
+
 		
 		tcpServer = new Server(5943);
-		database = new Database("fileserver", "", "");
-		
-		
-		
 	}
 	
 	
