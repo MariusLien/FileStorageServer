@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import utils.FileUtils;
-import utils.ServerFile;
-
 public class Database {
 
 	public Connection conn;
@@ -51,9 +48,13 @@ public class Database {
 			result.next();
 
 			File file = new File(path);
-
+			String access = result.getString(5);
+			boolean secured = (access == null) ? false : true;
+		
+			
+			
 			if (file.exists()) {
-				return new ServerFile(result.getInt(0), result.getString(1), path, file);
+				return new ServerFile(result.getInt(0), result.getString(1), path, secured, file);
 			}
 			System.out.println("[FAIL] File could not be found.");
 			return null;
@@ -128,8 +129,12 @@ public class Database {
 				String path = result.getString(3);
 				File file = new File(path);
 
+				String access = result.getString(5);
+				boolean secured = (access == null) ? false : true;
+			
+				
 				if (file.exists()) {
-					return new ServerFile(result.getInt(1), result.getString(2), path, file);
+					return new ServerFile(result.getInt(1), result.getString(2), path, secured, file);
 				}
 				System.out.println("[FAIL] File could not be found");
 				return null;

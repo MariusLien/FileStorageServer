@@ -1,4 +1,4 @@
-package utils;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,7 +36,27 @@ public class FileUtils {
         return sb.toString();
 	}
 
+	public static void createStorageFolder() {
+		File dir = new File("storage");
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+	}
 	
+	
+	
+	public static boolean isInteger(String t) {
+	
+			
+			try {
+				Integer.parseInt(t);
+			} catch(Exception e) {
+				return false;
+			}	
+
+	  
+	    return true;
+	}
 	
 	public static void saveToStorage(byte[] bytes, String path) {
 		
@@ -46,7 +66,6 @@ public class FileUtils {
 		
 		
 		Path fileLocation = Paths.get("storage\\" + path + "\\" + filename);
-	
 		
 
 		try {
@@ -62,23 +81,26 @@ public class FileUtils {
 	
 	
 	public static int getFilesInDir(File dir) {
+		
+		if(!dir.exists()) dir.mkdir();
+		
 		int size = dir.listFiles().length;
 		System.out.println(size);
 		return size;
 	}
 	
 	
-	public static byte[] retrieveBytesFromStorage(String path) {
-		
-		Path fileLocation = Paths.get("path");
-		try {
-			byte[] data = Files.readAllBytes(fileLocation);
-			return data;
-		} catch (IOException e) {
-			System.out.println("[FAIL] Failed retrieving bytes from storage.");
-			return null;
-		}
-	}
+//	public static byte[] retrieveBytesFromStorage(String path) {
+//		
+//		Path fileLocation = Paths.get("path");
+//		try {
+//			byte[] data = Files.readAllBytes(fileLocation);
+//			return data;
+//		} catch (IOException e) {
+//			System.out.println("[FAIL] Failed retrieving bytes from storage.");
+//			return null;
+//		}
+//	}
 	
 		
 
@@ -92,7 +114,6 @@ public class FileUtils {
 
             bytesArray = new byte[(int) file.length()];
 
-            //read file into bytes[]
             fileInputStream = new FileInputStream(file);
             fileInputStream.read(bytesArray);
 
