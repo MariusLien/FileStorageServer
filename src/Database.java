@@ -49,8 +49,8 @@ public class Database {
 
 			File file = new File(path);
 			String access = result.getString(5);
-			boolean secured = (access == null) ? false : true;
-		
+			boolean secured = (access.isEmpty()) ? false : true;
+			
 			
 			
 			if (file.exists()) {
@@ -130,8 +130,7 @@ public class Database {
 				File file = new File(path);
 
 				String access = result.getString(5);
-				boolean secured = (access == null) ? false : true;
-			
+				boolean secured = (access.isEmpty()) ? false : true;
 				
 				if (file.exists()) {
 					return new ServerFile(result.getInt(1), result.getString(2), path, secured, file);

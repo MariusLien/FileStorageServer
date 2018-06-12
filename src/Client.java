@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Client extends Thread {
 
@@ -45,27 +47,31 @@ public class Client extends Thread {
 
 					String[] args = line.split(" ");
 
-					if (args.length == 0)
+					if (args.length < 2) {
 						out.write("ERROR Invalid request".getBytes());
-
+						continue;
+					}
+					
 					String action = args[0];
 					String location = args[1];
-
-					if (action == null || location == null)
-						out.write("ERROR Invalid request".getBytes());
-
-					if (action == "GET") {
-
+					
+					if (action.equals("GET")) {
 						if (FileUtils.isInteger(location)) {
-
-							// ID is passed.
+							
 
 							ServerFile serverfile = Main.database.getFile(Integer.parseInt(location));
 
+							if(serverfile == null) {
+								out.write("ERROR Could not find".getBytes());
+								continue;
+							}
+							
 							if (!serverfile.secured) {
-
+								long startTime = System.currentTimeMillis();
 								out.write(FileUtils.readBytesFromFile(serverfile.file));
-
+								Date endTime = new Date();
+								float difference = endTime.getTime() - startTime;
+								System.out.println("[OK] File done sending (" + difference + " ms)");
 							} else {
 								System.out.println("[WARNING] File is secure.");
 							}
