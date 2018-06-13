@@ -10,7 +10,7 @@ You need to get the path or ID, of the file
 by connecting to the database in your own client.
 
 
-![Failed to load image](https://raw.githubusercontent.com/MariusLien/FileStorageServer/blob/master/res/filestoragemodel.png)
+![Failed to load image](https://github.com/MariusLien/FileStorageServer/blob/master/res/filestoragemodel.png)
 
 
 ### GET
