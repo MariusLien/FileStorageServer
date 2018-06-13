@@ -1,19 +1,18 @@
 
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.UUID;
-
-import com.mysql.cj.xdevapi.FilterableStatement;
 
 public class FileUtils {
 
@@ -59,6 +58,35 @@ public class FileUtils {
 
 	  
 	    return true;
+	}
+	
+	public static String getIP() {
+		
+		URL whatismyip;
+		BufferedReader in = null;
+		
+		try {
+			whatismyip = new URL("http://checkip.amazonaws.com");
+			
+			try {
+				in = new BufferedReader(new InputStreamReader(
+				                whatismyip.openStream()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		try {
+			return in.readLine();
+		} catch (IOException e) {
+			return "0.0.0.0";
+		}
 	}
 	
 	public static Path saveToStorage(byte[] bytes, String path) {

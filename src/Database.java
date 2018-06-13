@@ -73,12 +73,13 @@ public class Database {
 
 		try {
 			PreparedStatement statement = conn
-					.prepareStatement("INSERT INTO files (filename, path, size, access) VALUES (?,?,?,?)");
+					.prepareStatement("INSERT INTO files (filename, path, size, access, ip) VALUES (?,?,?,?,?)");
 			statement.setString(1, filename);
 			;
 			statement.setString(2, path);
 			statement.setLong(3, size);
 			statement.setString(4, "");
+			statement.setString(5, FileUtils.getIP());
 
 			statement.executeUpdate();
 			System.out.println("[OK] File record uploaded to database.");
@@ -102,13 +103,14 @@ public class Database {
 			System.out.println(encPassword);
 			
 			PreparedStatement statement = conn
-					.prepareStatement("INSERT INTO files (filename, path, size, access) VALUES (?,?,?,?)");
+					.prepareStatement("INSERT INTO files (filename, path, size, access, ip) VALUES (?,?,?,?,?)");
 			statement.setString(1, filename);
 			;
 			statement.setString(2, path);
 			statement.setLong(3, size);
 			statement.setString(4, encPassword);
-
+			statement.setString(5, FileUtils.getIP());
+			
 			statement.executeUpdate();
 			System.out.println("[OK] File record uploaded to database.");
 
