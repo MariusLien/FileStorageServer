@@ -43,7 +43,7 @@ public class Database {
 
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM files WHERE path=?");
-			statement.setString(0, path);
+			statement.setString(1, path);
 			ResultSet result = statement.executeQuery();
 			result.next();
 
@@ -54,11 +54,12 @@ public class Database {
 			
 			
 			if (file.exists()) {
-				return new ServerFile(result.getInt(0), result.getString(1), path, secured, access, file);
+				return new ServerFile(result.getInt(1), result.getString(2), path, secured, access, file);
 			}
 			System.out.println("[FAIL] File could not be found.");
 			return null;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("[FAIL] Failed creating prepared statement.");
 			return null;
 		}

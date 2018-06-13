@@ -33,6 +33,7 @@ public class Client extends Thread {
 			out.write(FileUtils.readBytesFromFile(file.file));
 			Date endTime = new Date();
 			float difference = endTime.getTime() - startTime;
+			out.write("OK file was successfully sent.".getBytes());
 			System.out.println("[OK] File done sending (" + difference + " ms)");
 		} catch (IOException e) {
 			try {
@@ -171,13 +172,20 @@ public class Client extends Thread {
 							}
 
 						} else {
-
+							
 							ServerFile serverfile = Main.database.getFile(location);
-
+							
+							
+							if(serverfile == null) {
+								out.write("ERROR Could not find file.".getBytes());
+								continue;
+							}
+							
+							
 							if (!serverfile.secured) {
 
-								out.write(FileUtils.readBytesFromFile(serverfile.file));
-
+								sendFile(serverfile, out);
+								
 							} else {
 								
 								if(args.length == 3) {
@@ -211,7 +219,6 @@ public class Client extends Thread {
 							
 							
 							File directory = new File("storage\\" + path);
-						
 							
 							
 							this.currentfile = new CurrentFile(directory, false, null);
