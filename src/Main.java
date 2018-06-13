@@ -1,5 +1,10 @@
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
 import java.io.File;
-import java.nio.file.Paths;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Main {
 
@@ -19,8 +24,5 @@ public class Main {
 		
 		tcpServer = new Server(5943);
 	}
-	
-	
-	
 	
 }

@@ -54,7 +54,7 @@ public class Database {
 			
 			
 			if (file.exists()) {
-				return new ServerFile(result.getInt(0), result.getString(1), path, secured, file);
+				return new ServerFile(result.getInt(0), result.getString(1), path, secured, access, file);
 			}
 			System.out.println("[FAIL] File could not be found.");
 			return null;
@@ -133,7 +133,7 @@ public class Database {
 				boolean secured = (access.isEmpty()) ? false : true;
 				
 				if (file.exists()) {
-					return new ServerFile(result.getInt(1), result.getString(2), path, secured, file);
+					return new ServerFile(result.getInt(1), result.getString(2), path, secured, access, file);
 				}
 				System.out.println("[FAIL] File could not be found");
 				return null;

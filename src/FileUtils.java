@@ -11,6 +11,9 @@ import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.UUID;
+
+import com.mysql.cj.xdevapi.FilterableStatement;
 
 public class FileUtils {
 
@@ -58,11 +61,11 @@ public class FileUtils {
 	    return true;
 	}
 	
-	public static void saveToStorage(byte[] bytes, String path) {
+	public static Path saveToStorage(byte[] bytes, String path) {
 		
 		
 		File directory = new File("storage\\" + path);
-		String filename = getFilesInDir(directory) + ".data";
+		String filename = generateName(directory) + ".dat";
 		
 		
 		Path fileLocation = Paths.get("storage\\" + path + "\\" + filename);
@@ -70,24 +73,17 @@ public class FileUtils {
 
 		try {
 			Files.write(fileLocation, bytes, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.CREATE_NEW);
+			return fileLocation;
 		
-			
 			
 		} catch (IOException e) {
 			System.out.println("[FAIL] Failed writing file to storage.");
 		}
-		
+		return null;
 	}
 	
 	
-	public static int getFilesInDir(File dir) {
-		
-		if(!dir.exists()) dir.mkdir();
-		
-		int size = dir.listFiles().length;
-		System.out.println(size);
-		return size;
-	}
+
 	
 	
 //	public static byte[] retrieveBytesFromStorage(String path) {
@@ -104,6 +100,17 @@ public class FileUtils {
 	
 		
 
+	
+	private static String generateName(File directory) {
+		
+		long time = System.currentTimeMillis();
+		int size = directory.listFiles().length;
+		time += size;
+		
+		return "" + time;
+	}
+
+	
 	
 	public static byte[] readBytesFromFile(File file) {
 
@@ -129,7 +136,7 @@ public class FileUtils {
             }
 
         }
-
+        
         return bytesArray;
 
     }

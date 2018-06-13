@@ -8,11 +8,13 @@ public class ServerFile {
 	public int id;
 	public String filename;
 	public String path;
-	public boolean secured;
+	public Boolean secured;
+	public String accesskey;
 	public File file;
 	
-	public ServerFile(int id, String filename, String path, boolean secured, File file) {
+	public ServerFile(int id, String filename, String path, boolean secured, String accesskey, File file) {
 		
+		this.accesskey = accesskey;
 		this.id = id;
 		this.filename = filename;
 		this.path = path;
